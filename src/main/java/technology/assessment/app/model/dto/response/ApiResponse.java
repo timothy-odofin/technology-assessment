@@ -15,9 +15,9 @@ import java.util.Map;
  * @param <T>
  */
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class ApiResponse<T> {
     private String message;
     private String code;
@@ -38,5 +38,9 @@ public class ApiResponse<T> {
         this.data = data;
     }
 
-
+    public ApiResponse(String message, String code, T data) {
+        this.message = message;
+        this.data = data;
+        this.code= code;
+    }
 }
