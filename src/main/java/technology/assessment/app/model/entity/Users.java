@@ -16,13 +16,13 @@ import java.util.UUID;
  * @author JIDEX
  */
 @Entity
-@Table(name = "buyer")
+@Table(name = "users")
 @Data
 @ToString
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Buyer extends BaseEntity {
+public class Users extends BaseEntity {
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "user_token", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")

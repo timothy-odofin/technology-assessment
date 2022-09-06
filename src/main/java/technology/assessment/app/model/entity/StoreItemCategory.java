@@ -3,7 +3,6 @@ package technology.assessment.app.model.entity;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
-import technology.assessment.app.model.enums.AccountType;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -29,7 +28,7 @@ public class StoreItemCategory extends BaseEntity {
     private String description;
     @JoinColumn(name = "created_by", referencedColumnName = "id")
     @ManyToOne
-    private Buyer createdBy;
+    private Users createdBy;
 
 
 }

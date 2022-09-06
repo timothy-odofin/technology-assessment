@@ -23,7 +23,7 @@ public class Transactions extends BaseEntity {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "tranCode", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
     @Type(type = "uuid-char")
-    private UUID tranCode;
+    private UUID tranRef;
     private Integer quantityPurchased;
     private Double unitPrice;
     private Double discount;
@@ -33,7 +33,7 @@ public class Transactions extends BaseEntity {
     private String description;
     @JoinColumn(name = "buyer_id", referencedColumnName = "id")
     @ManyToOne
-    private Buyer buyer;
+    private Users buyer;
     @JoinColumn(name = "item_id", referencedColumnName = "id")
     @ManyToOne
     private StoreItem item;

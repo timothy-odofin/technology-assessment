@@ -28,7 +28,7 @@ public class StoreItem extends BaseEntity {
     private String description;
     @JoinColumn(name = "created_by", referencedColumnName = "id")
     @ManyToOne
-    private Buyer createdBy;
+    private Users createdBy;
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     @ManyToOne
     private StoreItemCategory category;
