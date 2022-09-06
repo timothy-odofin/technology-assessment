@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class AccountTypeValidator implements ConstraintValidator<ValueOfEnum, CharSequence> {
+public class AccountTypeValidator implements ConstraintValidator<AccountTypeEnum, CharSequence> {
     private List<String> acceptedValues;
 
     @Override
-    public void initialize(ValueOfEnum annotation) {
+    public void initialize(AccountTypeEnum annotation) {
         acceptedValues = Stream.of(annotation.enumClass().getEnumConstants())
                 .map(Enum::name)
                 .collect(Collectors.toList());

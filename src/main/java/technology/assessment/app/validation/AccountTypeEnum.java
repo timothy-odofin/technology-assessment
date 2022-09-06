@@ -14,7 +14,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Documented
 @Constraint(validatedBy = AccountTypeValidator.class)
-public @interface ValueOfEnum {
+public @interface AccountTypeEnum {
     Class<? extends Enum<?>> enumClass();
     String message() default "must be any of enum {enumClass}";
     Class<?>[] groups() default {};
