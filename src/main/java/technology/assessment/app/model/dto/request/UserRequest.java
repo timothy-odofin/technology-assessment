@@ -6,6 +6,8 @@ import technology.assessment.app.validation.AccountTypeEnum;
 
 import javax.validation.constraints.NotBlank;
 
+import java.util.Date;
+
 import static technology.assessment.app.util.MessageUtil.*;
 
 @Data
@@ -16,4 +18,5 @@ public class UserRequest {
     private String lastName;
     @AccountTypeEnum(enumClass = AccountType.class)
     private String userCategory;
+    private Date creationDate;
 }
