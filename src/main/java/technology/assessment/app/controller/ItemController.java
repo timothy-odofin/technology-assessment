@@ -38,6 +38,11 @@ public class ItemController {
      return itemService.listItem(page,size);
 
     }
+    @GetMapping(LIST_ITEM_BY_CATEGORY_CODE)
+    ApiResponse<List<StoreItemResponse>> listItemByCategory(@RequestParam(value = CODE) String code){
+        return itemService.listItemByCategory(code);
+
+    }
     @GetMapping(CATEGORY_LIST)
     ApiResponse<List<StoreItemCategoryResponse>> listItemCategory(@RequestParam(value = PAGE, defaultValue = PAGE_DEFAULT) int page,
                                                                   @RequestParam(value = SIZE, defaultValue = SIZE_DEFAULT) int size){

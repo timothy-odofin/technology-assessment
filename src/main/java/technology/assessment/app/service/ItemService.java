@@ -13,5 +13,6 @@ public interface ItemService {
     ApiResponse<String> addItem(StoreItemRequest payload);
     ApiResponse<List<StoreItemResponse>> listItem(int page, int size);
     ApiResponse<List<StoreItemCategoryResponse>> listItemCategory(int page,int size);
+    ApiResponse<List<StoreItemResponse>> listItemByCategory(String categoryCode);
 
 }

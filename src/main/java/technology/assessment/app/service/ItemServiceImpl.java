@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import technology.assessment.app.exception.RecordNotFoundException;
 import technology.assessment.app.mapper.Mapper;
 import technology.assessment.app.model.dto.request.StoreItemCategoryRequest;
@@ -21,8 +22,10 @@ import technology.assessment.app.repository.StoreItemRepo;
 import technology.assessment.app.repository.UsersRepo;
 import technology.assessment.app.util.CodeUtil;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static technology.assessment.app.util.AppCode.CREATED;
 import static technology.assessment.app.util.AppCode.OKAY;
@@ -101,7 +104,7 @@ return usersOptional.get();
         Page<StoreItem> storeItemPage= storeItemRepo.findAll(PageRequest.of(page,size, Sort.by(SORTING_COL).descending()));
         if(storeItemPage.isEmpty())
             throw new RecordNotFoundException(RECORD_NOT_FOUND);
-        return new ApiResponse<>(SUCCESS,OKAY,Mapper.convertList(storeItemPage.getContent(),StoreItemCategoryResponse.class));
+        return new ApiResponse<>(SUCCESS,OKAY,Mapper.convertList(storeItemPage.getContent(),StoreItemResponse.class));
     }
 
     @Override
@@ -110,5 +113,17 @@ return usersOptional.get();
         if(storeItemCategoryPage.isEmpty())
             throw new RecordNotFoundException(RECORD_NOT_FOUND);
         return new ApiResponse<>(SUCCESS,OKAY,Mapper.convertList(storeItemCategoryPage.getContent(),StoreItemCategoryResponse.class));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ApiResponse<List<StoreItemResponse>> listItemByCategory(String categoryCode) {
+       validateCategory(categoryCode);
+       List<StoreItemResponse>  responseList= storeItemRepo.listByCategoryCode(categoryCode).filter(rs->rs!=null && rs.getId()!=null)
+               .sorted(Comparator.comparing(StoreItem::getItemName))
+               .map(rs->Mapper.convertObject(rs,StoreItemResponse.class)).collect(Collectors.toList());
+
+        return new ApiResponse<>(SUCCESS,OKAY,responseList);
+
     }
 }
