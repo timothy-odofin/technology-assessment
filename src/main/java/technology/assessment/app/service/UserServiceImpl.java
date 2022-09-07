@@ -14,7 +14,9 @@ import technology.assessment.app.model.dto.response.UserResponse;
 import technology.assessment.app.model.entity.Users;
 import technology.assessment.app.model.enums.AccountType;
 import technology.assessment.app.repository.UsersRepo;
+import technology.assessment.app.util.CodeUtil;
 
+import java.util.Date;
 import java.util.List;
 
 import static technology.assessment.app.util.AppCode.CREATED;
@@ -40,12 +42,10 @@ public class UserServiceImpl implements  UserService{
         Users user =Users.builder()
                 .firstName(payload.getFirstName())
                 .lastName(payload.getLastName())
-
-                .userCategory(AccountType.valueOfName(payload.getUserCategory()))
+                .userToken(CodeUtil.generateCode())
+                .registeredDate(payload.getCreationDate()==null?new Date():payload.getCreationDate())
+                .userCategory(payload.getUserCategory().name())
                 .build();
-        if(payload.getCreationDate() !=null){
-            user.setDateCreated(payload.getCreationDate());
-        }
         usersRepo.save(user);
         return new ApiResponse<>(SUCCESS,CREATED, USER_CREATED);
     }

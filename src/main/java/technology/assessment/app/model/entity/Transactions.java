@@ -19,11 +19,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Transactions extends BaseEntity {
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "tranCode", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
-    @Type(type = "uuid-char")
-    private UUID tranRef;
+
+    private String tranRef;
     private Integer quantityPurchased;
     private Double unitPrice;
     private Double discount;

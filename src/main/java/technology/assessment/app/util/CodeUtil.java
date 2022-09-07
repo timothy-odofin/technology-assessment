@@ -1,4 +1,4 @@
-package swipe.ng.msc.utils;
+package technology.assessment.app.util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
  * database IDs, use them as forgotten password hashes, invitation codes, store shard numbers
  * This is implementation of http://hashids.org v0.3.3 version.
  *
- * @author fanweixiao <fanweixiao@gmail.com>
+ *
  * @since 0.3.3
  */
 public class CodeUtil {
@@ -33,7 +33,10 @@ public class CodeUtil {
   public CodeUtil(String salt, int minHashLength) {
     this(salt, minHashLength, DEFAULT_ALPHABET);
   }
+public static String generateCode(){
+    return new CodeUtil ("123", 8).encode(System.currentTimeMillis());
 
+}
   public CodeUtil(String salt, int minHashLength, String alphabet) {
     this.salt = salt;
     if(minHashLength < 0)

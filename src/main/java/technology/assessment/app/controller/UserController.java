@@ -21,7 +21,7 @@ public class UserController {
                                          @RequestParam(value = SIZE, defaultValue = SIZE_DEFAULT) int size) {
         return userService.list(page, size);
     }
-    @GetMapping(ADD)
+    @PostMapping(ADD)
     ApiResponse<String> addUser(@RequestBody UserRequest payload) {
         return userService.addUser(payload);
     }

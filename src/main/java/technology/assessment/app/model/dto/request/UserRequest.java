@@ -16,7 +16,6 @@ public class UserRequest {
     private String firstName;
     @NotBlank(message = LAST_NAME_REQUIRED)
     private String lastName;
-    @AccountTypeEnum(enumClass = AccountType.class)
-    private String userCategory;
+    private AccountType userCategory;
     private Date creationDate;
 }

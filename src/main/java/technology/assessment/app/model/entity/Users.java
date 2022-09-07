@@ -5,10 +5,8 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 import technology.assessment.app.model.enums.AccountType;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -23,14 +21,12 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Users extends BaseEntity {
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "user_token", updatable = false, nullable = false, columnDefinition = "VARCHAR(36)")
-    @Type(type = "uuid-char")
-    private UUID userToken;
+    private String userToken;
     private String firstName;
     private String lastName;
-    private AccountType userCategory;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date registeredDate;
+    private String userCategory;
 
 
 }
