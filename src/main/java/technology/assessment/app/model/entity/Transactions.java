@@ -19,7 +19,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Transactions extends BaseEntity {
-
     private String tranRef;
     private Integer quantityPurchased;
     private Double unitPrice;

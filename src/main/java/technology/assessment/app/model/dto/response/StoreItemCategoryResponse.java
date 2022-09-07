@@ -11,7 +11,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StoreItemCategoryResponse extends BaseDto {
-    private UUID code;
+    private String code;
     private String categoryName;
     private String description;
     private UserHelper createdBy;

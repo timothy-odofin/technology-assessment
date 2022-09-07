@@ -18,7 +18,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StoreItemResponse extends BaseDto{
-    private UUID code;
+    private String code;
     private String itemName;
     private String description;
     private UserHelper createdBy;

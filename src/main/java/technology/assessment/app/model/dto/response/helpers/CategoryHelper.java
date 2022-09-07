@@ -6,6 +6,6 @@ import java.util.UUID;
 
 @Data
 public class CategoryHelper {
-    private UUID code;
+    private String code;
     private String categoryName;
 }

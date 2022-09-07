@@ -9,5 +9,5 @@ public class UserHelper {
     private String firstName;
     private String lastName;
     private AccountType userCategory;
-    private UUID userToken;
+    private String userToken;
 }

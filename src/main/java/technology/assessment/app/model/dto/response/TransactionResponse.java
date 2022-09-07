@@ -6,7 +6,7 @@ import technology.assessment.app.model.dto.response.helpers.UserHelper;
 import java.util.UUID;
 @Data
 public class TransactionResponse extends BaseDto {
-    private UUID tranRef;
+    private String tranRef;
     private Integer quantityPurchased;
     private Double unitPrice;
     private Double discount;
