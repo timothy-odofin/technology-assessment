@@ -1,5 +1,6 @@
 package technology.assessment.app.model.entity;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -23,10 +24,8 @@ public class BaseEntity {
     protected Long id;
 
     @CreationTimestamp
-    @ColumnDefault("CURRENT_TIMESTAMP")
-    protected Date dateCreated;
+    private LocalDateTime dateCreated;
 
     @UpdateTimestamp
-    @ColumnDefault("CURRENT_TIMESTAMP")
-    protected Date lastModified;
+    private LocalDateTime lastModified;
 }
