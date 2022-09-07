@@ -6,6 +6,7 @@ import technology.assessment.app.validation.AccountTypeEnum;
 
 import javax.validation.constraints.NotBlank;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import static technology.assessment.app.util.MessageUtil.*;
@@ -17,5 +18,5 @@ public class UserRequest {
     @NotBlank(message = LAST_NAME_REQUIRED)
     private String lastName;
     private AccountType userCategory;
-    private Date creationDate;
+    private LocalDate creationDate;
 }

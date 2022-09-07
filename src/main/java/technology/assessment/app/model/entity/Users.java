@@ -6,6 +6,8 @@ import org.hibernate.annotations.Type;
 import technology.assessment.app.model.enums.AccountType;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -24,8 +26,7 @@ public class Users extends BaseEntity {
     private String userToken;
     private String firstName;
     private String lastName;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date registeredDate;
+    private LocalDate registeredDate;
     private String userCategory;
 
 

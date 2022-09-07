@@ -16,6 +16,8 @@ import technology.assessment.app.model.enums.AccountType;
 import technology.assessment.app.repository.UsersRepo;
 import technology.assessment.app.util.CodeUtil;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -43,7 +45,7 @@ public class UserServiceImpl implements  UserService{
                 .firstName(payload.getFirstName())
                 .lastName(payload.getLastName())
                 .userToken(CodeUtil.generateCode())
-                .registeredDate(payload.getCreationDate()==null?new Date():payload.getCreationDate())
+                .registeredDate(payload.getCreationDate()==null? LocalDate.now():payload.getCreationDate())
                 .userCategory(payload.getUserCategory().name())
                 .build();
         usersRepo.save(user);
