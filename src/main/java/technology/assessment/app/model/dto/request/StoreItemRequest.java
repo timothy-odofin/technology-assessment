@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 import static technology.assessment.app.util.MessageUtil.*;
@@ -19,7 +20,7 @@ public class StoreItemRequest {
     private String postedByUser;
     @NotBlank(message = CATEGORY_REQUIRED)
     private String categoryCode;
-    @NotBlank(message = QUANTITY_REQUIRED)
+    @NotNull(message = QUANTITY_REQUIRED)
     @Min(value=1, message = QUANTITY_REQUIRED)
     private Integer quantity;
     @Min(value=1, message = PRICE_REQUIRED)
