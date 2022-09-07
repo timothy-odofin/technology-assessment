@@ -40,11 +40,19 @@ public class ItemServiceImpl implements  ItemService{
     private final StoreItemRepo storeItemRepo;
     private final UsersRepo usersRepo;
 
-    private Users validateUser(String userToken){
+    public Users validateUser(String userToken){
         Optional<Users> usersOptional = usersRepo.findByUserToken(userToken);
         if(usersOptional.isEmpty())
             throw new RecordNotFoundException(USER_REQUIRED);
 return usersOptional.get();
+    }
+
+    @Override
+    public StoreItem findStoreItem(String code) {
+        List<StoreItem> storeItems = storeItemRepo.checkExistence(code);
+        if(storeItems.isEmpty())
+            throw new RecordNotFoundException(ITEM_REQUIRED);
+        return storeItems.get(0);
     }
 
     private StoreItemCategory validateCategory(String code){
