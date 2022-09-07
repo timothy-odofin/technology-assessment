@@ -16,6 +16,8 @@ public class MessageUtil {
     public final static String FIRST_NAME_REQUIRED = "First name is required";
     public final static String LAST_NAME_REQUIRED = "Last name is required";
     public final static String  RECORD_NOT_FOUND = "Record not found";
+    public final static String  DONE = "Record created successfully";
+    public final static String  UPDATED = "Record updated successfully";
 
 }
 

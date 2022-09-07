@@ -12,6 +12,7 @@ import static technology.assessment.app.util.MessageUtil.*;
 public class StoreItemRequest {
     @NotBlank(message = ITEM_REQUIRED)
     private String itemName;
+    private String itemCode;
     @NotBlank(message = DESCRIPTION_REQUIRED)
     private String description;
     @NotBlank(message = USER_REQUIRED)
