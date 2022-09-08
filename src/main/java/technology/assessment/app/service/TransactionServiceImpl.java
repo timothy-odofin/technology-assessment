@@ -3,6 +3,7 @@ package technology.assessment.app.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import technology.assessment.app.exception.BadRequestException;
 import technology.assessment.app.exception.RecordNotFoundException;
@@ -41,6 +42,7 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public ApiResponse<String> purchaseItem(TransactionRequest payload) {
         Users buyer = validateUser(payload.getBuyerToken());
         StoreItem item = validateItem(payload.getItemCode());
@@ -61,11 +63,11 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Transactional(readOnly = true)
     protected ApiResponse<List<TransactionResponse>> fetchTransaction(String code, String category){
-        Stream<Transactions> transactionsStream = category.equals(ITEM)?transactionsRepo.listByItemCode(code):transactionsRepo.listByUserToken(code);
-        if(transactionsStream.findAny().isEmpty())
+        List<Transactions> transactionsList = category.equals(ITEM)?transactionsRepo.listByItemCode(code):transactionsRepo.listByUserToken(code);
+        if(transactionsList.isEmpty())
             throw new RecordNotFoundException(formatMessage(NO_TRANSACTION,category));
         return new ApiResponse<>(SUCCESS, OKAY,
-                transactionsStream.sorted(Comparator.comparing(Transactions::getDateCreated).reversed())
+                transactionsList.stream().sorted(Comparator.comparing(Transactions::getDateCreated).reversed())
                         .map(rs -> Mapper.convertObject(rs, TransactionResponse.class))
                         .collect(Collectors.toList()));
     }

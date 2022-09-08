@@ -6,7 +6,7 @@ import java.util.UUID;
 
 @Data
 public class ItemHelper {
-    private UUID code;
+    private String code;
     private String itemName;
     private String description;
     private CategoryHelper category;
