@@ -6,4 +6,7 @@ public class ParamName {
     public final static String SIZE="size";
     public final static String SIZE_DEFAULT="50";
     public final static String SORTING_COL="dateCreated";
+    public final static String ITEM_CODE="itemCode";
+    public final static String USER_TOKEN="userToken";
+
 }

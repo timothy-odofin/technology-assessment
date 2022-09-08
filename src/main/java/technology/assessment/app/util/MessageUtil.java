@@ -1,7 +1,7 @@
 package technology.assessment.app.util;
 
 public class MessageUtil {
-    public  final static String PAYMENT_SUCCESSFUL = "Great, transaction processed successfully.";
+    public  final static String TRANSACTION_PROCESSED_SUCCESSFULLY = "Great, transaction processed successfully.";
     public  final static String USER_CREATED = "Great, added successfully";
     public final static String INTERNAL_SERVER_ERROR = "Unable to complete request at the moment.Please try again";
     public final static String SUCCESS = "Success";
@@ -18,6 +18,9 @@ public class MessageUtil {
     public final static String  RECORD_NOT_FOUND = "Record not found";
     public final static String  DONE = "Record created successfully";
     public final static String  UPDATED = "Record updated successfully";
+    public final static String  ITEM = "Item";
+    public final static String  BUYER = "Buyer";
+    public final static String  NO_TRANSACTION = "Transaction record not found for the selected %s";
 
 }
 

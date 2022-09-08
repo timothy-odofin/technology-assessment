@@ -3,7 +3,6 @@ package technology.assessment.app.model.dto.response;
 import lombok.Data;
 import technology.assessment.app.model.dto.response.helpers.ItemHelper;
 import technology.assessment.app.model.dto.response.helpers.UserHelper;
-import java.util.UUID;
 @Data
 public class TransactionResponse extends BaseDto {
     private String tranRef;

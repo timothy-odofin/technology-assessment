@@ -12,18 +12,16 @@ import technology.assessment.app.model.dto.request.UserRequest;
 import technology.assessment.app.model.dto.response.ApiResponse;
 import technology.assessment.app.model.dto.response.UserResponse;
 import technology.assessment.app.model.entity.Users;
-import technology.assessment.app.model.enums.AccountType;
 import technology.assessment.app.repository.UsersRepo;
 import technology.assessment.app.util.CodeUtil;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 import static technology.assessment.app.util.AppCode.CREATED;
 import static technology.assessment.app.util.AppCode.OKAY;
 import static technology.assessment.app.util.MessageUtil.*;
+import static technology.assessment.app.util.ParamName.SORTING_COL;
 
 @Service
 @Slf4j
@@ -33,7 +31,7 @@ public class UserServiceImpl implements  UserService{
 
     @Override
     public ApiResponse<List<UserResponse>> list(int page, int size) {
-        Page<Users> usersPage = usersRepo.findAll(PageRequest.of(page,size, Sort.by("dateCreated").descending()));
+        Page<Users> usersPage = usersRepo.findAll(PageRequest.of(page,size, Sort.by(SORTING_COL).descending()));
         if(usersPage.isEmpty())
             throw new RecordNotFoundException(RECORD_NOT_FOUND);
         return new ApiResponse<>(SUCCESS,OKAY, Mapper.convertList(usersPage.getContent(),UserResponse.class));
