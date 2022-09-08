@@ -30,5 +30,4 @@ public class Users extends BaseEntity {
     private String userCategory;
 
 
-
 }

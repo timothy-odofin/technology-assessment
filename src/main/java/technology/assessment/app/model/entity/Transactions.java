@@ -3,6 +3,7 @@ package technology.assessment.app.model.entity;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
+import technology.assessment.app.repository.listener.TransactionListener;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -12,6 +13,7 @@ import java.util.UUID;
  * @author JIDEX
  */
 @Entity
+@EntityListeners(TransactionListener.class)
 @Table(name = "transactions")
 @Data
 @ToString
