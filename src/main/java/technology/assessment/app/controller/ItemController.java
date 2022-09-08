@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import technology.assessment.app.model.dto.request.StoreItemCategoryRequest;
 import technology.assessment.app.model.dto.request.StoreItemRequest;
+import technology.assessment.app.model.dto.request.StoreItemUpdateRequest;
 import technology.assessment.app.model.dto.response.ApiResponse;
 import technology.assessment.app.model.dto.response.StoreItemCategoryResponse;
 import technology.assessment.app.model.dto.response.StoreItemResponse;
@@ -29,8 +30,11 @@ public class ItemController {
     }
     @PostMapping(ADD)
     ApiResponse<String> addItem(@Valid @RequestBody StoreItemRequest payload){
-
         return itemService.addItem(payload);
+    }
+    @PostMapping(UPDATE)
+    ApiResponse<String> updateItem(@Valid @RequestBody StoreItemUpdateRequest payload){
+        return itemService.updateItem(payload);
     }
     @GetMapping(LIST)
     ApiResponse<List<StoreItemResponse>> listItem(@RequestParam(value = PAGE, defaultValue = PAGE_DEFAULT) int page,

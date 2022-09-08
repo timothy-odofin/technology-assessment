@@ -31,7 +31,6 @@ public class TransactionListener {
         log.info("New Purchase {} By {}  at {} width description {}",
                 item.getItemName(), toSave.getBuyer().getFullName(), LocalDateTime.now(),item.getDescription());
     }
-
     private void updateDiscount(Transactions toSave) {
         StoreItem item = toSave.getItem();
         if (item.bonusExclussion().contains(toSave.getItem().getCategory().getCategoryName().toLowerCase(Locale.ROOT))) {

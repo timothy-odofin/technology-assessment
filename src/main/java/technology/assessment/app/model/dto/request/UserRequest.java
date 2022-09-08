@@ -2,14 +2,12 @@ package technology.assessment.app.model.dto.request;
 
 import lombok.Data;
 import technology.assessment.app.model.enums.AccountType;
-import technology.assessment.app.validation.AccountTypeEnum;
 
 import javax.validation.constraints.NotBlank;
-
 import java.time.LocalDate;
-import java.util.Date;
 
-import static technology.assessment.app.util.MessageUtil.*;
+import static technology.assessment.app.util.MessageUtil.FIRST_NAME_REQUIRED;
+import static technology.assessment.app.util.MessageUtil.LAST_NAME_REQUIRED;
 
 @Data
 public class UserRequest {

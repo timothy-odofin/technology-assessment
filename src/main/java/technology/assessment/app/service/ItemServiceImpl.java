@@ -8,9 +8,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import technology.assessment.app.exception.RecordNotFoundException;
+import technology.assessment.app.exception.RecordAccessException;
 import technology.assessment.app.mapper.Mapper;
 import technology.assessment.app.model.dto.request.StoreItemCategoryRequest;
 import technology.assessment.app.model.dto.request.StoreItemRequest;
+import technology.assessment.app.model.dto.request.StoreItemUpdateRequest;
 import technology.assessment.app.model.dto.response.ApiResponse;
 import technology.assessment.app.model.dto.response.StoreItemCategoryResponse;
 import technology.assessment.app.model.dto.response.StoreItemResponse;
@@ -63,10 +65,16 @@ return usersOptional.get();
             throw new RecordNotFoundException(ITEM_REQUIRED);
         return storeItemCategory.get();
     }
+private Users validateSecurity(String userToken){
+        Users user = validateUser(userToken);
+    if(!user.getUserCategory().equalsIgnoreCase(AccountType.EMPLOYEE.name()))
+        throw new RecordAccessException(UNAUTHORIZE);
+    return user;
 
+}
     @Override
     public ApiResponse<String> addItemCategory(StoreItemCategoryRequest payload) {
-        Users user = validateUser(payload.getPostedByUser());
+        Users user = validateSecurity(payload.getPostedByUser());
         StoreItemCategory storeItemCategory = Mapper.convertObject(payload,StoreItemCategory.class);
         storeItemCategory.setCreatedBy(user);
         storeItemCategory.setCode(CodeUtil.generateCode());
@@ -81,37 +89,33 @@ return usersOptional.get();
 
     @Override
     public ApiResponse<String> addItem(StoreItemRequest payload) {
-        Users user = validateUser(payload.getPostedByUser());
-        if(!user.getUserCategory().equalsIgnoreCase(AccountType.EMPLOYEE.name()))
-            throw new SecurityException(UNAUTHORIZE);
+        Users user = validateSecurity(payload.getPostedByUser());
         StoreItemCategory category = validateCategory(payload.getCategoryCode());
-        List<StoreItem> dbItem = storeItemRepo.checkExistence(payload.getItemCode());
-
-        if(dbItem.isEmpty()){
             StoreItem newItem = Mapper.convertObject(payload,StoreItem.class);
             newItem.setCode(CodeUtil.generateCode());
             newItem.setCreatedBy(user);
             newItem.setCategory(category);
             storeItemRepo.save(newItem);
             log.info("New Item {} added at {}", newItem.getItemName(), LocalDateTime.now());
-            return ApiResponse.<String>builder()
-                    .code(CREATED)
-                    .data(DONE)
-                    .message(SUCCESS)
-                    .build();
-        }else{
-            StoreItem oldItem = dbItem.get(0);
-            oldItem.setQuantity(oldItem.getQuantity()+ payload.getQuantity());
-            oldItem.setPrice(payload.getPrice());
-            storeItemRepo.save(oldItem);
-            log.info("Item {} updated at {}", oldItem.getItemName(), LocalDateTime.now());
-            return ApiResponse.<String>builder()
-                    .code(OKAY)
-                    .data(UPDATED)
-                    .message(SUCCESS)
-                    .build();
-        }
+            return new ApiResponse<>(SUCCESS,OKAY,DONE);
 
+
+    }
+
+    @Override
+    public ApiResponse<String> updateItem(StoreItemUpdateRequest payload) {
+        Users user = validateSecurity(payload.getPostedByUser());
+        StoreItem item = findStoreItem(payload.getItemCode());
+      item.setPrice(payload.getPrice()==null || payload.getPrice()<=0? item.getPrice() : payload.getPrice());
+      item.setQuantity(item.getQuantity()+payload.getQuantity());
+      item.setCreatedBy(user);
+      item.setCategory(payload.getCategoryCode()==null || payload.getCategoryCode().isBlank()?item.getCategory():validateCategory(payload.getCategoryCode()));
+        log.info("Item {} updated at {}", item.getItemName(), LocalDateTime.now());
+        return ApiResponse.<String>builder()
+                .code(OKAY)
+                .data(UPDATED)
+                .message(SUCCESS)
+                .build();
     }
 
     @Override
