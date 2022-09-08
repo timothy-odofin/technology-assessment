@@ -2,6 +2,7 @@ package technology.assessment.app.model.dto.request;
 
 import lombok.Data;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 import static technology.assessment.app.util.MessageUtil.*;
@@ -12,6 +13,6 @@ public class TransactionRequest {
     String buyerToken;
     @NotBlank(message = ITEM_REQUIRED)
     String itemCode;
-    @NotBlank(message = QUANTITY_REQUIRED)
+    @Min(value=1, message = QUANTITY_REQUIRED)
     Integer quantity;
 }
