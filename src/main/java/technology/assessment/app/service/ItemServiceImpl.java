@@ -17,11 +17,13 @@ import technology.assessment.app.model.dto.response.StoreItemResponse;
 import technology.assessment.app.model.entity.StoreItem;
 import technology.assessment.app.model.entity.StoreItemCategory;
 import technology.assessment.app.model.entity.Users;
+import technology.assessment.app.model.enums.AccountType;
 import technology.assessment.app.repository.StoreItemCategoryRepo;
 import technology.assessment.app.repository.StoreItemRepo;
 import technology.assessment.app.repository.UsersRepo;
 import technology.assessment.app.util.CodeUtil;
 
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -69,6 +71,7 @@ return usersOptional.get();
         storeItemCategory.setCreatedBy(user);
         storeItemCategory.setCode(CodeUtil.generateCode());
         storeItemCategoryRepo.save(storeItemCategory);
+        log.info("New Item Category {} added at {}", storeItemCategory.getCategoryName(), LocalDateTime.now());
         return ApiResponse.<String>builder()
                 .code(CREATED)
                 .data(DONE)
@@ -79,6 +82,8 @@ return usersOptional.get();
     @Override
     public ApiResponse<String> addItem(StoreItemRequest payload) {
         Users user = validateUser(payload.getPostedByUser());
+        if(!user.getUserCategory().equalsIgnoreCase(AccountType.EMPLOYEE.name()))
+            throw new SecurityException(UNAUTHORIZE);
         StoreItemCategory category = validateCategory(payload.getCategoryCode());
         List<StoreItem> dbItem = storeItemRepo.checkExistence(payload.getItemCode());
 
@@ -88,6 +93,7 @@ return usersOptional.get();
             newItem.setCreatedBy(user);
             newItem.setCategory(category);
             storeItemRepo.save(newItem);
+            log.info("New Item {} added at {}", newItem.getItemName(), LocalDateTime.now());
             return ApiResponse.<String>builder()
                     .code(CREATED)
                     .data(DONE)
@@ -98,6 +104,7 @@ return usersOptional.get();
             oldItem.setQuantity(oldItem.getQuantity()+ payload.getQuantity());
             oldItem.setPrice(payload.getPrice());
             storeItemRepo.save(oldItem);
+            log.info("Item {} updated at {}", oldItem.getItemName(), LocalDateTime.now());
             return ApiResponse.<String>builder()
                     .code(OKAY)
                     .data(UPDATED)

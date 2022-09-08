@@ -6,11 +6,8 @@ import technology.assessment.app.model.dto.request.TransactionRequest;
 import technology.assessment.app.model.dto.response.ApiResponse;
 import technology.assessment.app.model.dto.response.TransactionResponse;
 import technology.assessment.app.service.TransactionService;
-
 import javax.validation.Valid;
 import java.util.List;
-
-import static technology.assessment.app.util.MessageUtil.ITEM;
 import static technology.assessment.app.util.ParamName.ITEM_CODE;
 import static technology.assessment.app.util.ParamName.USER_TOKEN;
 import static technology.assessment.app.util.TransactionEndpoints.*;

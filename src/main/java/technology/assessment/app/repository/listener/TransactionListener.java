@@ -14,6 +14,7 @@ import technology.assessment.app.util.CodeUtil;
 
 import javax.persistence.PrePersist;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Locale;
 
 @Component
@@ -26,6 +27,9 @@ public class TransactionListener {
         toSave.setDiscount(toSave.getDiscount()>=0? toSave.getDiscount() : accountType.discountRate * toSave.getAmount());
         toSave.setNetAmount(toSave.getAmount() - toSave.getDiscount());
         toSave.setTranRef(CodeUtil.generateCode());
+        StoreItem item = toSave.getItem();
+        log.info("New Purchase {} By {}  at {} width description {}",
+                item.getItemName(), toSave.getBuyer().getFullName(), LocalDateTime.now(),item.getDescription());
     }
 
     private void updateDiscount(Transactions toSave) {

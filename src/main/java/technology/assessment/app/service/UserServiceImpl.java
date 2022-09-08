@@ -16,6 +16,7 @@ import technology.assessment.app.repository.UsersRepo;
 import technology.assessment.app.util.CodeUtil;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static technology.assessment.app.util.AppCode.CREATED;
@@ -48,6 +49,8 @@ public class UserServiceImpl implements  UserService{
                 .userCategory(payload.getUserCategory().name())
                 .build();
         usersRepo.save(user);
+        log.info("New User FirstName: {} LastName: {}, AccountType: {} added at {}",
+                user.getFirstName(),user.getLastName(), user.getUserCategory(), LocalDateTime.now());
         return new ApiResponse<>(SUCCESS,CREATED, USER_CREATED);
     }
 }

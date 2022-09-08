@@ -52,6 +52,12 @@ public class GlobalErrorHandler extends ResponseEntityExceptionHandler {
         log.warn("Record not found for {} access through ", exception.getMessage(),requestUrl);
         return ResponseEntity.ok(new ApiResponse<>(FAILED, NOT_FOUND, INTERNAL_SERVER_ERROR));
     }
+    @ExceptionHandler(SecurityException.class)
+    public ResponseEntity handleSecurityException(SecurityException exception, WebRequest webRequest) {
+        String requestUrl = webRequest.getContextPath();
+        log.warn("Record not found for {} access through ", exception.getMessage(),requestUrl);
+        return ResponseEntity.ok(new ApiResponse<>(FAILED, NOT_FOUND, INTERNAL_SERVER_ERROR));
+    }
     @ExceptionHandler(RecordNotFoundException.class)
     public ResponseEntity handleRecordNotFoundExceptions(RecordNotFoundException exception, WebRequest webRequest) {
         String requestUrl = webRequest.getContextPath();

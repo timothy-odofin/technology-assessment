@@ -28,6 +28,9 @@ public class Users extends BaseEntity {
     private String lastName;
     private LocalDate registeredDate;
     private String userCategory;
+    public String getFullName(){
+        return this.firstName+" "+this.lastName;
 
+    }
 
 }
