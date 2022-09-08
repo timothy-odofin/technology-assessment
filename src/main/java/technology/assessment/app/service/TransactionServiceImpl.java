@@ -57,7 +57,7 @@ public class TransactionServiceImpl implements TransactionService {
                 .build();
         transactionsRepo.save(transactions);
         item.setQuantity(item.getQuantity()- payload.getQuantity());
-        itemService.syncItem(item);
+        itemService.sync(item);
         return new ApiResponse<>(SUCCESS, OKAY, TRANSACTION_PROCESSED_SUCCESSFULLY);
     }
 

@@ -19,7 +19,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StoreItemCategory extends BaseEntity {
-
     private String code;
     private String categoryName;
     private String description;
