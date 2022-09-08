@@ -44,6 +44,11 @@ public class ItemServiceImpl implements  ItemService{
     private final StoreItemRepo storeItemRepo;
     private final UsersRepo usersRepo;
 
+    @Override
+    public StoreItem syncItem(StoreItem item) {
+        return storeItemRepo.save(item);
+    }
+
     public Users validateUser(String userToken){
         Optional<Users> usersOptional = usersRepo.findByUserToken(userToken);
         if(usersOptional.isEmpty())
@@ -95,7 +100,7 @@ private Users validateSecurity(String userToken){
             newItem.setCode(CodeUtil.generateCode());
             newItem.setCreatedBy(user);
             newItem.setCategory(category);
-            storeItemRepo.save(newItem);
+        syncItem(newItem);
             log.info("New Item {} added at {}", newItem.getItemName(), LocalDateTime.now());
             return new ApiResponse<>(SUCCESS,OKAY,DONE);
 
@@ -111,6 +116,7 @@ private Users validateSecurity(String userToken){
       item.setCreatedBy(user);
       item.setCategory(payload.getCategoryCode()==null || payload.getCategoryCode().isBlank()?item.getCategory():validateCategory(payload.getCategoryCode()));
         log.info("Item {} updated at {}", item.getItemName(), LocalDateTime.now());
+        syncItem(item);
         return ApiResponse.<String>builder()
                 .code(OKAY)
                 .data(UPDATED)

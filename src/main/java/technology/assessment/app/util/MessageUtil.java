@@ -21,6 +21,8 @@ public class MessageUtil {
     public final static String  ITEM = "Item";
     public final static String  UNAUTHORIZE = "You are not authorize to add/update item/category";
     public final static String  NO_TRANSACTION = "Transaction record not found for the selected %s";
+    public final static String  OUT_OF_STOCK = "Low stock order...";
+
 
 }
 

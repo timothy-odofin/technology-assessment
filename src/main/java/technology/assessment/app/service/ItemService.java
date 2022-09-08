@@ -12,6 +12,7 @@ import technology.assessment.app.model.entity.Users;
 import java.util.List;
 
 public interface ItemService {
+    StoreItem syncItem(StoreItem item);
      Users validateUser(String userToken);
     StoreItem findStoreItem(String code);
     ApiResponse<String> addItemCategory(StoreItemCategoryRequest payload);
