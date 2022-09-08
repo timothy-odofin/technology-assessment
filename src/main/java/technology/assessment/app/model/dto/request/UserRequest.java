@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import technology.assessment.app.model.enums.AccountType;
+import technology.assessment.app.validation.EnumAccountTypePattern;
 
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
@@ -21,6 +22,7 @@ public class UserRequest {
     private String firstName;
     @NotBlank(message = LAST_NAME_REQUIRED)
     private String lastName;
+    @EnumAccountTypePattern(regexp = "EMPLOYEE|CUSTOMER|AFFILIATE")
     private AccountType userCategory;
     private LocalDate creationDate;
 }

@@ -7,6 +7,7 @@ import technology.assessment.app.model.dto.response.ApiResponse;
 import technology.assessment.app.model.dto.response.UserResponse;
 import technology.assessment.app.service.UserService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 import static technology.assessment.app.util.ParamName.*;
@@ -22,7 +23,7 @@ public class UserController {
         return userService.list(page, size);
     }
     @PostMapping(ADD)
-    ApiResponse<String> addUser(@RequestBody UserRequest payload) {
+    ApiResponse<String> addUser(@Valid @RequestBody UserRequest payload) {
         return userService.addUser(payload);
     }
 }

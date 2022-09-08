@@ -17,7 +17,7 @@ import java.util.UUID;
 public class UserResponse extends BaseDto{
     private String firstName;
     private String lastName;
-    private AccountType userCategory;
+    private String userCategory;
     private String userToken;
     @JsonFormat(pattern = "yyyy/MM/dd")
     private LocalDate registeredDate;

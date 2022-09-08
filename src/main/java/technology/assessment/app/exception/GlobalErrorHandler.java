@@ -18,6 +18,7 @@ import technology.assessment.app.model.dto.response.exception.ApiError;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.PatternSyntaxException;
 
 import static technology.assessment.app.util.AppCode.*;
 import static technology.assessment.app.util.MessageUtil.*;
@@ -27,6 +28,12 @@ import static technology.assessment.app.util.MessageUtil.*;
 @Slf4j
 public class GlobalErrorHandler extends ResponseEntityExceptionHandler {
 
+    @ExceptionHandler(PatternSyntaxException.class)
+    public ResponseEntity handlePatternSyntaxException(PatternSyntaxException exception, WebRequest webRequest) {
+        String requestUrl = webRequest.getContextPath();
+        log.warn("Record not found for {} access through ", exception.getMessage(),requestUrl);
+        return ResponseEntity.ok(new ApiResponse<>(FAILED, NOT_FOUND, exception.getMessage()));
+    }
     @Override
     protected ResponseEntity handleMethodArgumentNotValid(
             MethodArgumentNotValidException ex,
@@ -40,11 +47,11 @@ public class GlobalErrorHandler extends ResponseEntityExceptionHandler {
         for (ObjectError error : ex.getBindingResult().getGlobalErrors()) {
             errors.add(error.getObjectName() + ": " + error.getDefaultMessage());
         }
-
-        ApiError apiError =
-                new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), errors);
-        return  ResponseEntity.ok(new ApiResponse<>(FAILED, apiError.getStatus()+"", apiError));
+        return  ResponseEntity.ok(new ApiResponse<>(FAILED, BAD_REQUEST, errors));
     }
+
+
+
 
     @ExceptionHandler(UnknownHostException.class)
     public ResponseEntity handleUnknownHostException(UnknownHostException exception, WebRequest webRequest) {
@@ -86,9 +93,7 @@ public class GlobalErrorHandler extends ResponseEntityExceptionHandler {
         String error =
                 ex.getName() + " should be of type " + ex.getRequiredType().getName();
 
-        ApiError apiError =
-                new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), error);
-        return  ResponseEntity.ok(new ApiResponse<>(FAILED, apiError.getStatus()+"", apiError)
+        return  ResponseEntity.ok(new ApiResponse<>(FAILED, BAD_REQUEST+"", error)
         );
     }
     @ExceptionHandler(value = Exception.class)
