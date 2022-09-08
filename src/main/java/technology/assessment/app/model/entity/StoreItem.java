@@ -36,7 +36,7 @@ public class StoreItem extends BaseEntity {
     private Double price;
 
 public List<String> bonusExclussion(){
-    return new LinkedList<>(Arrays.asList("Groceries"));
+    return new LinkedList<>(Arrays.asList("groceries"));
 
 }
 }

@@ -41,11 +41,12 @@ public class UserServiceImpl implements  UserService{
 
     @Override
     public ApiResponse<String> addUser(UserRequest payload) {
+        LocalDate currentDate = LocalDate.now();
         Users user =Users.builder()
                 .firstName(payload.getFirstName())
                 .lastName(payload.getLastName())
                 .userToken(CodeUtil.generateCode())
-                .registeredDate(payload.getCreationDate()==null? LocalDate.now():payload.getCreationDate())
+                .registeredDate(payload.getCreationDate()==null || payload.getCreationDate().isAfter(currentDate)? currentDate:payload.getCreationDate())
                 .userCategory(payload.getUserCategory().name())
                 .build();
         usersRepo.save(user);
