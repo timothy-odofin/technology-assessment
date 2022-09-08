@@ -1,6 +1,9 @@
 package technology.assessment.app.model.dto.request;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import technology.assessment.app.model.enums.AccountType;
 
 import javax.validation.constraints.NotBlank;
@@ -10,6 +13,9 @@ import static technology.assessment.app.util.MessageUtil.FIRST_NAME_REQUIRED;
 import static technology.assessment.app.util.MessageUtil.LAST_NAME_REQUIRED;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserRequest {
     @NotBlank(message = FIRST_NAME_REQUIRED)
     private String firstName;
