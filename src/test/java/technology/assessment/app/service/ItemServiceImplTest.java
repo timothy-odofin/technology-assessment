@@ -1,23 +1,14 @@
 package technology.assessment.app.service;
 
-import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.*;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import technology.assessment.app.exception.BadRequestException;
-import technology.assessment.app.exception.RecordAccessException;
-import technology.assessment.app.exception.RecordNotFoundException;
 import technology.assessment.app.model.DataUtils;
 import technology.assessment.app.model.dto.request.StoreItemCategoryRequest;
 import technology.assessment.app.model.dto.request.StoreItemRequest;
 import technology.assessment.app.model.dto.request.StoreItemUpdateRequest;
-import technology.assessment.app.model.dto.request.UserRequest;
 import technology.assessment.app.model.dto.response.ApiResponse;
 import technology.assessment.app.model.dto.response.StoreItemCategoryResponse;
 import technology.assessment.app.model.dto.response.StoreItemResponse;
@@ -27,40 +18,29 @@ import technology.assessment.app.model.entity.Users;
 import technology.assessment.app.repository.StoreItemCategoryRepo;
 import technology.assessment.app.repository.StoreItemRepo;
 import technology.assessment.app.repository.UsersRepo;
+import technology.assessment.app.util.BaseIT;
 
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static technology.assessment.app.model.DataUtils.*;
-import static technology.assessment.app.model.DataUtils.testStoreItemUpdateRequestError;
+import static technology.assessment.app.model.DataUtils.testCreateUser;
+import static technology.assessment.app.model.DataUtils.testCustomerUser;
 import static technology.assessment.app.util.AppCode.*;
 import static technology.assessment.app.util.ItemEndPoints.*;
 import static technology.assessment.app.util.MessageUtil.*;
-import static technology.assessment.app.util.MessageUtil.RECORD_NOT_FOUND;
 import static technology.assessment.app.util.RestMapper.mapFromJson;
 import static technology.assessment.app.util.RestMapper.mapToJson;
-
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@AutoConfigureMockMvc
-@ActiveProfiles("test")
-@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-@Slf4j
-class ItemServiceImplTest {
+class ItemServiceImplTest extends BaseIT {
     @Autowired
     private StoreItemRepo storeItemRepo;
     @Autowired
     private StoreItemCategoryRepo storeItemCategoryRepo;
     @Autowired
     private UsersRepo usersRepo;
-    @Autowired
-    private MockMvc mockMvc;
 
     @BeforeEach
     void setUp() {
@@ -75,7 +55,6 @@ class ItemServiceImplTest {
         return storeItemCategoryRepo.save(storeItemCategoryRequest);
 
     }
-
     StoreItem initStoreItem() {
         StoreItemCategory storeItemCategory = initCategory();
         StoreItem item = DataUtils.testStoreItemData();

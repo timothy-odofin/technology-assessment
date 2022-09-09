@@ -1,16 +1,9 @@
 package technology.assessment.app.service;
 
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayNameGeneration;
-import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import technology.assessment.app.model.DataUtils;
 import technology.assessment.app.model.dto.request.TransactionRequest;
@@ -24,6 +17,7 @@ import technology.assessment.app.repository.StoreItemCategoryRepo;
 import technology.assessment.app.repository.StoreItemRepo;
 import technology.assessment.app.repository.TransactionsRepo;
 import technology.assessment.app.repository.UsersRepo;
+import technology.assessment.app.util.BaseIT;
 
 import java.util.List;
 
@@ -40,14 +34,7 @@ import static technology.assessment.app.util.RestMapper.mapFromJson;
 import static technology.assessment.app.util.RestMapper.mapToJson;
 import static technology.assessment.app.util.TransactionEndpoints.*;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@AutoConfigureMockMvc
-@ActiveProfiles("test")
-@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-@Slf4j
-class TransactionServiceImplTest {
-    @Autowired
-    private ItemService itemService;
+class TransactionServiceImplTest extends BaseIT {
     @Autowired
     private TransactionsRepo transactionsRepo;
 
@@ -57,9 +44,6 @@ class TransactionServiceImplTest {
     private StoreItemCategoryRepo storeItemCategoryRepo;
     @Autowired
     private UsersRepo usersRepo;
-    @Autowired
-    private MockMvc mockMvc;
-
     @BeforeEach
     void setUp() {
         storeItemRepo.deleteAllInBatch();
