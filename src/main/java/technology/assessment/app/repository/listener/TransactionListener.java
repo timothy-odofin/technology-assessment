@@ -21,7 +21,7 @@ public class TransactionListener {
     public void onPrePersist(final Transactions toSave) {
         updateDiscount(toSave);
         AccountType accountType = AccountType.valueOf(toSave.getDiscountType());
-        toSave.setDiscount(toSave.getDiscount()>=0? toSave.getDiscount() : accountType.discountRate * toSave.getAmount());
+        toSave.setDiscount(toSave.getDiscount() !=null && toSave.getDiscount()>=0? toSave.getDiscount() : accountType.discountRate * toSave.getAmount());
         toSave.setNetAmount(toSave.getAmount() - toSave.getDiscount());
         toSave.setTranRef(CodeUtil.generateCode());
         StoreItem item = toSave.getItem();
@@ -33,6 +33,7 @@ public class TransactionListener {
         if (item.bonusExclussion().contains(toSave.getItem().getCategory().getCategoryName().toLowerCase(Locale.ROOT))) {
             toSave.setDiscountType(AccountType.OTHERS.name());
             toSave.setDiscount(0.0);
+            toSave.setDescription("Purchase item with no discount on category exclusion");
         } else {
             Users buyer = toSave.getBuyer();
             Double amount = toSave.getAmount();
@@ -48,7 +49,8 @@ public class TransactionListener {
             else if(buyer.getUserCategory().equalsIgnoreCase(AccountType.CUSTOMER.name()) &&
                     AppUtil.getYearDifference(buyer.getRegisteredDate(), LocalDate.now())>2) {
                 toSave.setDiscountType(AccountType.CUSTOMER.name());
-                toSave.setDescription("Purchased item with 15% discount(Customer over 2years)");
+                toSave.setDiscount(toSave.getAmount()*0.05);
+                toSave.setDescription("Purchased item with 5% discount(Customer over 2years)");
             }
             else if(amount>=otherAccountType.discountRate) {
                 Double discountRate=amount/otherAccountType.discountRate;

@@ -68,13 +68,6 @@ class ItemServiceImplTest {
         storeItemCategoryRepo.deleteAllInBatch();
         usersRepo.deleteAllInBatch();
     }
-//    @AfterEach
-//    void setUpDelete() {
-//        storeItemRepo.deleteAllInBatch();
-//        storeItemCategoryRepo.deleteAllInBatch();
-//        usersRepo.deleteAllInBatch();
-//    }
-
 
     StoreItemCategory initCategory() {
         StoreItemCategory storeItemCategoryRequest = DataUtils.testCreateStoreItemCategory();

@@ -8,6 +8,7 @@ import technology.assessment.app.model.dto.response.helpers.ItemHelper;
 import technology.assessment.app.model.dto.response.helpers.UserHelper;
 import technology.assessment.app.model.entity.StoreItem;
 import technology.assessment.app.model.entity.StoreItemCategory;
+import technology.assessment.app.model.entity.Transactions;
 import technology.assessment.app.model.entity.Users;
 import technology.assessment.app.model.enums.AccountType;
 import technology.assessment.app.util.CodeUtil;
@@ -98,14 +99,7 @@ public class DataUtils {
                 .postedByUser("123")
                 .build();
     }
-    public static UserRequest testUser(){
-        return UserRequest.builder()
-                .userCategory(AccountType.CUSTOMER)
-                .firstName("OYEJIDE")
-                .lastName("ODOFIN")
-                .build();
 
-    }
     public static UserRequest testBadUser(){
         return UserRequest.builder()
                 .userCategory(AccountType.CUSTOMER)
@@ -158,10 +152,19 @@ public class DataUtils {
         return StoreItem.builder()
                 .itemName("Rice")
                 .description("Rice flower")
-                .price(200.0)
+                .price(50.0)
                 .code(CodeUtil.generateCode())
                 .quantity(2000)
                 .build();
+    }
+    public static UserRequest testUser(){
+        return UserRequest.builder()
+                .userCategory(AccountType.CUSTOMER)
+                .firstName("OYEJIDE")
+                .lastName("ODOFIN")
+
+                .build();
+
     }
     public static String testStoreItemRequestError(){
         return String.join(",",Arrays.asList(ITEM_REQUIRED,DESCRIPTION_REQUIRED,USER_REQUIRED,CATEGORY_REQUIRED,QUANTITY_REQUIRED,PRICE_REQUIRED));
@@ -236,8 +239,78 @@ public class DataUtils {
                 .quantity(10)
                 .build();
     }
+    public static Transactions testTransactionRequestData(){
+      return Transactions.builder()
+              .quantityPurchased(2)
+              .build();
+
+    }
     public static ApiResponse<String> testPurchaseItemResponse(){
         return new ApiResponse<>(SUCCESS, OKAY, TRANSACTION_PROCESSED_SUCCESSFULLY);
 
     }
-}
+
+    public static Users testCreateUserV2(){
+        return Users.builder()
+                .userToken(CodeUtil.generateCode())
+                .lastName("ODOFIN")
+                .firstName("OYEJIDE")
+                .userCategory(AccountType.EMPLOYEE.name())
+                .registeredDate(LocalDate.now())
+                .build();
+
+    }
+    public static Users testCreateUser3(){
+        return Users.builder()
+                .userToken(CodeUtil.generateCode())
+                .lastName("Ajede")
+                .firstName("Olanrewaju")
+                .userCategory(AccountType.CUSTOMER.name())
+                .registeredDate(LocalDate.of(2017,8,23))
+                .build();
+
+    }
+    public static Users testCreateUser4(){
+        return Users.builder()
+                .userToken(CodeUtil.generateCode())
+                .lastName("Ahmad")
+                .firstName("Dolapo")
+                .userCategory(AccountType.CUSTOMER.name())
+                .registeredDate(LocalDate.now())
+                .build();
+
+    }
+    public static Users testCreateUser5(){
+        return Users.builder()
+                .userToken(CodeUtil.generateCode())
+                .lastName("Sunkanmi")
+                .firstName("Atobatele")
+                .userCategory(AccountType.AFFILIATE.name())
+                .registeredDate(LocalDate.of(2018,5,18))
+                .build();
+
+    }
+    public static StoreItemCategory testStoreItemCategory1() {
+        return StoreItemCategory.builder()
+                .categoryName("Groceries")
+                .code(CodeUtil.generateCode())
+                .description("grocery item")
+                .build();
+    }
+    public static StoreItemCategory testStoreItemCategory2() {
+        return StoreItemCategory.builder()
+                .categoryName("beverages")
+                .code(CodeUtil.generateCode())
+                .description("beverages")
+                .build();
+    }
+    public static StoreItemCategory testStoreItemCategory3() {
+        return StoreItemCategory.builder()
+                .categoryName("Non Food")
+                .code(CodeUtil.generateCode())
+                .description("non food")
+                .build();
+    }
+    }
+
+
