@@ -1,15 +1,10 @@
 package technology.assessment.app.model;
 
 import technology.assessment.app.mapper.Mapper;
-import technology.assessment.app.model.dto.request.StoreItemCategoryRequest;
-import technology.assessment.app.model.dto.request.StoreItemRequest;
-import technology.assessment.app.model.dto.request.StoreItemUpdateRequest;
-import technology.assessment.app.model.dto.request.UserRequest;
-import technology.assessment.app.model.dto.response.ApiResponse;
-import technology.assessment.app.model.dto.response.StoreItemCategoryResponse;
-import technology.assessment.app.model.dto.response.StoreItemResponse;
-import technology.assessment.app.model.dto.response.UserResponse;
+import technology.assessment.app.model.dto.request.*;
+import technology.assessment.app.model.dto.response.*;
 import technology.assessment.app.model.dto.response.helpers.CategoryHelper;
+import technology.assessment.app.model.dto.response.helpers.ItemHelper;
 import technology.assessment.app.model.dto.response.helpers.UserHelper;
 import technology.assessment.app.model.entity.Users;
 import technology.assessment.app.model.enums.AccountType;
@@ -129,6 +124,22 @@ public class DataUtils {
                         .build()
         ));
     }
+    public static ApiResponse<List<TransactionResponse>> testTransactionResponseData(){
+        return new ApiResponse<>(SUCCESS,OKAY,Collections.singletonList(
+                TransactionResponse.builder()
+                        .tranRef("123")
+                        .amount(300.0)
+                        .buyer(testUserHelper())
+                        .discount(100.0)
+                        .discountType(AccountType.EMPLOYEE.name())
+                        .item(testItemHelper())
+                        .netAmount(200.0)
+                        .description("test desc")
+                        .quantityPurchased(1)
+                        .unitPrice(300.0)
+                        .build()
+        ));
+    }
     public static UserHelper testUserHelper(){
         return UserHelper.builder()
                 .firstName("Oyejide")
@@ -142,5 +153,26 @@ public class DataUtils {
                .categoryName("Test")
                .code("1233")
                .build();
+    }
+    public static ItemHelper testItemHelper(){
+        return ItemHelper.builder()
+                .category(testCategoryHelper())
+                .code("123")
+                .itemName("Test")
+                .description("Test")
+                .price(50.0)
+                .build();
+
+    }
+    public static TransactionRequest testTransactionRequest(){
+        return TransactionRequest.builder()
+                .buyerToken("123")
+                .itemCode("123")
+                .quantity(10)
+                .build();
+    }
+    public static ApiResponse<String> testPurchaseItemResponse(){
+        return new ApiResponse<>(SUCCESS, OKAY, TRANSACTION_PROCESSED_SUCCESSFULLY);
+
     }
 }

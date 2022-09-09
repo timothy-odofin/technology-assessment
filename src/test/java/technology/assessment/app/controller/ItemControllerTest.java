@@ -19,12 +19,11 @@ import technology.assessment.app.model.DataUtils;
 import technology.assessment.app.model.dto.response.ApiResponse;
 import technology.assessment.app.model.dto.response.StoreItemCategoryResponse;
 import technology.assessment.app.model.dto.response.StoreItemResponse;
-import technology.assessment.app.model.dto.response.UserResponse;
 import technology.assessment.app.service.ItemService;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
@@ -33,9 +32,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static technology.assessment.app.model.DataUtils.*;
 import static technology.assessment.app.util.AppCode.*;
-import static technology.assessment.app.util.MessageUtil.*;
-import static technology.assessment.app.util.RestMapper.*;
 import static technology.assessment.app.util.ItemEndPoints.*;
+import static technology.assessment.app.util.MessageUtil.*;
+import static technology.assessment.app.util.RestMapper.mapFromJson;
+import static technology.assessment.app.util.RestMapper.mapToJson;
 
 @WebMvcTest(ItemController.class)
 @Slf4j
@@ -102,7 +102,6 @@ class ItemControllerTest {
         assertEquals(result.getMessage(), SUCCESS);
         assertEquals(result.getData(),DONE);
     }
-
     @Test
     void test_add_item_unauthorized() throws Exception {
         Mockito.doThrow(new RecordAccessException(UNAUTHORIZE))
@@ -116,7 +115,6 @@ class ItemControllerTest {
         assertEquals(result.getMessage(), FAILED);
         assertEquals(result.getData(),UNAUTHORIZE);
     }
-
     @Test
     void test_add_item_bad_request() throws Exception {
         Mockito.doThrow(new BadRequestException(testStoreItemRequestError()))
@@ -130,7 +128,6 @@ class ItemControllerTest {
         assertEquals(result.getMessage(), FAILED);
         assertEquals(result.getData(),testStoreItemRequestError());
     }
-
     @Test
     void test_update_item_success() throws Exception {
         when(itemService.updateItem(any())).thenReturn(DataUtils.updateResponse());
@@ -143,7 +140,6 @@ class ItemControllerTest {
         assertEquals(result.getMessage(), SUCCESS);
         assertEquals(result.getData(),UPDATED);
     }
-
     @Test
     void test_update_item_unauthorized() throws Exception {
         Mockito.doThrow(new RecordAccessException(UNAUTHORIZE))
@@ -221,8 +217,6 @@ class ItemControllerTest {
         assertEquals(result.getData(),RECORD_NOT_FOUND);
 
     }
-
-
     @Test
     void test_list_item_category_return_success() throws Exception {
         when(itemService.listItemCategory(anyInt(),anyInt())).thenReturn(DataUtils.testStoreItemCategoryResponseData());
@@ -233,7 +227,6 @@ class ItemControllerTest {
         assertEquals(result.getCode(), OKAY);
         assertEquals(result.getMessage(), SUCCESS);
         assertEquals(result.getData().size(),1);
-
     }
     @Test
     void test_list_item_category_return_failed() throws Exception {
@@ -246,7 +239,5 @@ class ItemControllerTest {
         assertEquals(result.getCode(), NOT_FOUND);
         assertEquals(result.getMessage(), FAILED);
         assertEquals(result.getData(),RECORD_NOT_FOUND);
-
     }
-
 }

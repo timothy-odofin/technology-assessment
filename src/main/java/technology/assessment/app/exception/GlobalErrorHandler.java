@@ -58,6 +58,13 @@ public class GlobalErrorHandler extends ResponseEntityExceptionHandler {
         log.warn("Record not found for {} access through ", exception.getMessage(),requestUrl);
         return ResponseEntity.ok(new ApiResponse<>(FAILED, NOT_FOUND, INTERNAL_SERVER_ERROR));
     }
+
+    @ExceptionHandler(ItemOutOfStockException.class)
+    public ResponseEntity handleItemOutOfStockException(ItemOutOfStockException exception, WebRequest webRequest) {
+        String requestUrl = webRequest.getContextPath();
+        log.warn("Record not found for {} access through ", exception.getMessage(),requestUrl);
+        return ResponseEntity.ok(new ApiResponse<>(FAILED, INSSUFICIENT, exception.getMessage()));
+    }
     @ExceptionHandler(RecordAccessException.class)
     public ResponseEntity handleSecurityException(RecordAccessException exception, WebRequest webRequest) {
         String requestUrl = webRequest.getContextPath();

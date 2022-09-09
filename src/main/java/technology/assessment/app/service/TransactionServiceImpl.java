@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import technology.assessment.app.exception.BadRequestException;
+import technology.assessment.app.exception.ItemOutOfStockException;
 import technology.assessment.app.exception.RecordNotFoundException;
 import technology.assessment.app.mapper.Mapper;
 import technology.assessment.app.model.dto.request.TransactionRequest;
@@ -47,7 +48,7 @@ public class TransactionServiceImpl implements TransactionService {
         Users buyer = validateUser(payload.getBuyerToken());
         StoreItem item = validateItem(payload.getItemCode());
         if(payload.getQuantity()>item.getQuantity())
-            throw new BadRequestException(OUT_OF_STOCK);
+            throw new ItemOutOfStockException(OUT_OF_STOCK);
         Transactions transactions = Transactions.builder()
                 .unitPrice(item.getPrice())
                 .amount(item.getPrice() * payload.getQuantity())
