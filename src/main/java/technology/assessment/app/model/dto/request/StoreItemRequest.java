@@ -1,6 +1,9 @@
 package technology.assessment.app.model.dto.request;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -10,6 +13,9 @@ import javax.validation.constraints.Positive;
 import static technology.assessment.app.util.MessageUtil.*;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class StoreItemRequest {
     @NotBlank(message = ITEM_REQUIRED)
     private String itemName;

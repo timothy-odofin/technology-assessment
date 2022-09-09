@@ -42,14 +42,11 @@ class UserControllerTest {
     private WebApplicationContext webApplicationContext;
     @MockBean
     private UserService userService;
-
     private MockMvc mockMvc;
-
     @BeforeEach
     public void setUp() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
-
     @Test
     void test_add_user_return_success() throws Exception {
         when(userService.addUser(any())).thenReturn(DataUtils.createUserResponse());

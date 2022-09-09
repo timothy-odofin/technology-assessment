@@ -102,7 +102,7 @@ private Users validateSecurity(String userToken){
             newItem.setCategory(category);
         sync(newItem);
             log.info("New Item {} added at {}", newItem.getItemName(), LocalDateTime.now());
-            return new ApiResponse<>(SUCCESS,OKAY,DONE);
+            return new ApiResponse<>(CREATED,OKAY,DONE);
 
 
     }

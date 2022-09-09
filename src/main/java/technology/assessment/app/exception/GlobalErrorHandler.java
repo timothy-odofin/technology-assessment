@@ -13,7 +13,6 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import technology.assessment.app.model.dto.response.ApiResponse;
-import technology.assessment.app.model.dto.response.exception.ApiError;
 
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -63,7 +62,7 @@ public class GlobalErrorHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity handleSecurityException(RecordAccessException exception, WebRequest webRequest) {
         String requestUrl = webRequest.getContextPath();
         log.warn("Record not found for {} access through ", exception.getMessage(),requestUrl);
-        return ResponseEntity.ok(new ApiResponse<>(FAILED, NOT_FOUND, exception.getMessage()));
+        return ResponseEntity.ok(new ApiResponse<>(FAILED, UNAUTHORIZE_CODE, exception.getMessage()));
     }
     @ExceptionHandler(RecordNotFoundException.class)
     public ResponseEntity handleRecordNotFoundExceptions(RecordNotFoundException exception, WebRequest webRequest) {

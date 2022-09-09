@@ -51,6 +51,6 @@ public class UserServiceImpl implements  UserService{
         usersRepo.save(user);
         log.info("New User FirstName: {} LastName: {}, AccountType: {} added at {}",
                 user.getFirstName(),user.getLastName(), user.getUserCategory(), LocalDateTime.now());
-        return new ApiResponse<>(SUCCESS,CREATED, USER_CREATED);
+        return new ApiResponse<>(SUCCESS,CREATED, DONE);
     }
 }
