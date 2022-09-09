@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 echo "Running integration and unit testing"
-mvn verify -Pfailsafe
+mvn verify
 
 echo "Building artifact"
-mvn clean install -DskipTests
+mvn clean install
 
 echo "docker-compose operations"
  docker-compose down
