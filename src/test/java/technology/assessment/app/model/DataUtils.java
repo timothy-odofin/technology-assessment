@@ -6,9 +6,11 @@ import technology.assessment.app.model.dto.response.*;
 import technology.assessment.app.model.dto.response.helpers.CategoryHelper;
 import technology.assessment.app.model.dto.response.helpers.ItemHelper;
 import technology.assessment.app.model.dto.response.helpers.UserHelper;
+import technology.assessment.app.model.entity.StoreItem;
+import technology.assessment.app.model.entity.StoreItemCategory;
 import technology.assessment.app.model.entity.Users;
 import technology.assessment.app.model.enums.AccountType;
-
+import technology.assessment.app.util.CodeUtil;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -37,6 +39,37 @@ public class DataUtils {
         return Collections.singletonList(user);
 
     }
+    public static Users testCreateUser(){
+       return Users.builder()
+                .userToken(CodeUtil.generateCode())
+                .lastName("ODOFIN")
+                .firstName("OYEJIDE")
+                .userCategory(AccountType.EMPLOYEE.name())
+                .registeredDate(LocalDate.now())
+                .registeredDate(LocalDate.now())
+                .build();
+
+    }
+    public static Users testCustomerUser(){
+        return Users.builder()
+                .userToken(CodeUtil.generateCode())
+                .lastName("ODOFIN")
+                .firstName("OYEJIDE")
+                .userCategory(AccountType.CUSTOMER.name())
+                .registeredDate(LocalDate.now())
+                .registeredDate(LocalDate.now())
+                .build();
+
+    }
+    public static StoreItemCategory testCreateStoreItemCategory(){
+        return StoreItemCategory.builder()
+                .categoryName("Test 1")
+                .description("Test description")
+                .code(CodeUtil.generateCode())
+                .build();
+
+    }
+
     public static ApiResponse<List<UserResponse>> testUsersResponse(){
         return new ApiResponse<>(SUCCESS,OKAY,Mapper.convertList(testUsers(),UserResponse.class));
 
@@ -53,18 +86,31 @@ public class DataUtils {
     }
     public static StoreItemUpdateRequest testStoreItemUpdateRequest(){
         return StoreItemUpdateRequest.builder()
+                .quantity(10)
+                .postedByUser("123")
                 .itemCode("test")
-                .categoryCode("test")
-                .postedByUser("test")
-                .quantity(39)
                 .build();
-
+    }
+    public static StoreItemUpdateRequest testStoreItemUpdateRequestV1(){
+        return StoreItemUpdateRequest.builder()
+                .quantity(10)
+                .itemCode("Test")
+                .postedByUser("123")
+                .build();
     }
     public static UserRequest testUser(){
         return UserRequest.builder()
                 .userCategory(AccountType.CUSTOMER)
                 .firstName("OYEJIDE")
                 .lastName("ODOFIN")
+                .build();
+
+    }
+    public static UserRequest testBadUser(){
+        return UserRequest.builder()
+                .userCategory(AccountType.CUSTOMER)
+                .firstName("")
+                .lastName("")
                 .build();
 
     }
@@ -77,13 +123,14 @@ public class DataUtils {
 
     }
     public static StoreItemCategoryRequest testStoreItemCategoryRequest(){
-
         return StoreItemCategoryRequest.builder()
                 .categoryName("Test 1")
                 .description("Test 1")
-                .postedByUser(testUsers().get(0).getUserToken())
+                .postedByUser("123")
                 .build();
     }
+
+
 
     public static StoreItemRequest testStoreItemRequest(){
 
@@ -95,7 +142,25 @@ public class DataUtils {
                 .postedByUser("123")
                 .quantity(2)
                 .price(500.0)
-                .postedByUser(testUsers().get(0).getUserToken())
+                .build();
+    }
+    public static StoreItemRequest testStoreItemBadRequest(){
+
+        return StoreItemRequest.builder()
+                .itemName("")
+                .description("Test 1")
+                .categoryCode("12345")
+                .postedByUser("123")
+                .price(500.0)
+                .build();
+    }
+    public static StoreItem testStoreItemData(){
+        return StoreItem.builder()
+                .itemName("Rice")
+                .description("Rice flower")
+                .price(200.0)
+                .code(CodeUtil.generateCode())
+                .quantity(2000)
                 .build();
     }
     public static String testStoreItemRequestError(){

@@ -19,9 +19,7 @@ import technology.assessment.app.model.DataUtils;
 import technology.assessment.app.model.dto.response.ApiResponse;
 import technology.assessment.app.model.dto.response.TransactionResponse;
 import technology.assessment.app.service.TransactionService;
-
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;

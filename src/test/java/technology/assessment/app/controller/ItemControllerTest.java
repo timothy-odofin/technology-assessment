@@ -145,7 +145,7 @@ class ItemControllerTest {
         Mockito.doThrow(new RecordAccessException(UNAUTHORIZE))
                 .when(itemService).updateItem(any());
         MvcResult mvcResult = mockMvc.perform(post(BASE + UPDATE)
-                        .contentType(MediaType.APPLICATION_JSON_VALUE).content(mapToJson(DataUtils.testStoreItemUpdateRequest())))
+                        .contentType(MediaType.APPLICATION_JSON_VALUE).content(mapToJson(DataUtils.testStoreItemUpdateRequestV1())))
                 .andExpect(status().isOk()).andReturn();
         String content = mvcResult.getResponse().getContentAsString();
         ApiResponse<String> result = mapFromJson(content, ApiResponse.class);

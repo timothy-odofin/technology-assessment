@@ -24,5 +24,5 @@ public class StoreItemUpdateRequest {
     @Min(value = 1, message = QUANTITY_REQUIRED)
     private Integer quantity;
     private Double price;
-    private String categoryCode;
+
 }

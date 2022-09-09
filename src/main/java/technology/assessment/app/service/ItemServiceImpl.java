@@ -102,7 +102,7 @@ private Users validateSecurity(String userToken){
             newItem.setCategory(category);
         sync(newItem);
             log.info("New Item {} added at {}", newItem.getItemName(), LocalDateTime.now());
-            return new ApiResponse<>(CREATED,OKAY,DONE);
+            return new ApiResponse<>(SUCCESS,CREATED,DONE);
 
 
     }
@@ -114,7 +114,6 @@ private Users validateSecurity(String userToken){
       item.setPrice(payload.getPrice()==null || payload.getPrice()<=0? item.getPrice() : payload.getPrice());
       item.setQuantity(item.getQuantity()+payload.getQuantity());
       item.setCreatedBy(user);
-      item.setCategory(payload.getCategoryCode()==null || payload.getCategoryCode().isBlank()?item.getCategory():validateCategory(payload.getCategoryCode()));
         log.info("Item {} updated at {}", item.getItemName(), LocalDateTime.now());
         sync(item);
         return ApiResponse.<String>builder()
