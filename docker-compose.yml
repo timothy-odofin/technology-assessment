@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.3"
 
 services:
   mysqldb:
@@ -10,8 +10,6 @@ services:
       - MYSQL_DATABASE=$MYSQLDB_DATABASE
     ports:
       - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
-    volumes:
-      - db:/var/lib/mysql
   retailstore:
     depends_on:
       - mysqldb
@@ -28,7 +26,5 @@ services:
               "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
               "spring.jpa.hibernate.ddl-auto" : "update"
             }'
-    volumes:
-      - .m2:/root/.m2
     stdin_open: true
     tty: true
