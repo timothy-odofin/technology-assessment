@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 echo "Running integration and unit testing"
-mvn clean verify
-
 echo "Building artifact"
 mvn clean install
 

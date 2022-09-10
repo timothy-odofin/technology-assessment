@@ -4,10 +4,8 @@ SET DEVELOPMENT_HOME=C:\Users\JIDE\Documents\fordsoft\task\retail
 
 cd %DEVELOPMENT_HOME%\retailstore\
 
-REM Integration testing
-call mvn verify
-
 REM Building artifacts
+REM Running Unit and integration testing
 call mvn clean install
 
 REM shutdown or stop any previous docker-compose that is running

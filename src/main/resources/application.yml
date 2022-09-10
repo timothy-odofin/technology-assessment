@@ -1,0 +1,26 @@
+logging:
+  level:
+    org:
+      org:
+        springframework: DEBUG
+spring:
+  application:
+    name: retail-store
+  jmx:
+    default-domain: retail-store
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3307/item_store?allowPublicKeyRetrieval=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&autoReconnect=true&useSSL=false&noAccessToProcedureBodies=true
+    username: root
+    password: test
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC+1
+        dialect: org.hibernate.dialect.MySQL5Dialect
+    hibernate:
+      ddl-auto: update
+server:
+  port: 5000
+  address: 0.0.0.0

@@ -17,5 +17,5 @@ ARG DEPENDENCY=app/dependency
 COPY --from=stage1 ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=stage1 ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=stage1 ${DEPENDENCY}/BOOT-INF/classes /app
-EXPOSE 8080
+EXPOSE 5000
 ENTRYPOINT ["java","-cp","app:app/lib/*","technology.assessment.app.AppApplication"]
