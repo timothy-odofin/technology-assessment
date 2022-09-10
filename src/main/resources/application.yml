@@ -10,7 +10,7 @@ spring:
     default-domain: retail-store
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3307/item_store?allowPublicKeyRetrieval=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&autoReconnect=true&useSSL=false&noAccessToProcedureBodies=true
+    url: jdbc:mysql://localhost:3307/item_store?allowPublicKeyRetrieval=true&useUnicode=true
     username: root
     password: test
   jpa:
@@ -23,4 +23,5 @@ spring:
       ddl-auto: update
 server:
   port: 5000
-  address: 0.0.0.0
+  servlet:
+    contextPath: /retail-store

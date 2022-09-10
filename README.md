@@ -60,6 +60,16 @@ Open the terminal and run the file named below
 ```
  sh run.sh
 ```
+The above files i.e run.bat and run.sh will complete the following process
+* build the project
+* create docker image
+* start docker container
+
+To stop and start the docker container, 
+```
+ docker-compose up
+ docker-compose down
+```
 #### To run the integration test manually
 ```compile
  mvn clean verify 
